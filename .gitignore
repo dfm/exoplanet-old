@@ -1,2 +1,9 @@
 .DS_Store
 *.pyc
+*.swp
+build/*
+*.so
+tex/*.aux
+tex/*.log
+tex/*.pdf
+tex/*.out

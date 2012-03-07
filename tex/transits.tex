@@ -1,0 +1,76 @@
+\documentclass[12pt,preprint]{aastex}
+
+% has to be before amssymb it seems
+\usepackage{color,hyperref}
+\definecolor{linkcolor}{rgb}{0,0,0.5}
+\hypersetup{colorlinks=true,linkcolor=linkcolor,citecolor=linkcolor,
+            filecolor=linkcolor,urlcolor=linkcolor}
+\newcommand{\numberparagraphs}{}
+\newcommand{\nonumberparagraphs}{}
+
+\usepackage{url}
+\usepackage{amssymb,amsmath}
+
+\newcommand{\arxiv}[1]{\href{http://arxiv.org/abs/#1}{arXiv:#1}}
+\newcommand{\project}[1]{{\sffamily #1}}
+\newcommand{\foreign}[1]{\emph{#1}}
+\newcommand{\etal}{\foreign{et\,al.}}
+\newcommand{\etc}{\foreign{etc.}}
+\newcommand{\unit}[1]{\mathrm{#1}}
+
+\newcommand{\Fig}[1]{Figure~\ref{fig:#1}}
+\newcommand{\fig}[1]{\Fig{#1}}
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\Tab}[1]{Table~\ref{tab:#1}}
+\newcommand{\tab}[1]{\Tab{#1}}
+\newcommand{\tablabel}[1]{\label{tab:#1}}
+\newcommand{\Eq}[1]{Equation~(\ref{eq:#1})}
+\newcommand{\eq}[1]{\Eq{#1}}
+\newcommand{\eqlabel}[1]{\label{eq:#1}}
+\newcommand{\Sect}[1]{Section~\ref{sect:#1}}
+\newcommand{\sect}[1]{\Sect{#1}}
+\newcommand{\App}[1]{Appendix~\ref{sect:#1}}
+\newcommand{\app}[1]{\App{#1}}
+\newcommand{\sectlabel}[1]{\label{sect:#1}}
+\newcommand{\Algo}[1]{Algorithm~\ref{algo:#1}}
+\newcommand{\algo}[1]{\Algo{#1}}
+\newcommand{\algolabel}[1]{\label{algo:#1}}
+
+% math symbols
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\like}{\mathscr{L}}
+\newcommand{\bvec}[1]{\boldsymbol{#1}}
+\newcommand{\paramvector}[1]{\bvec{#1}}
+\newcommand{\normal}[2]{\mathcal{N} (#1, #2)}
+\renewcommand{\vector}[1]{#1}
+\renewcommand{\matrix}[1]{#1}
+\newcommand{\pr}[1]{\ensuremath{p(#1)}}
+
+\begin{document}
+
+\title{Notes about transit modeling}
+
+\newcommand{\nyu}{2}
+\author{Daniel~Foreman-Mackey\altaffilmark{1,\nyu}}
+\altaffiltext{1}{To whom correspondence should be addressed:
+                        \url{danfm@nyu.edu}}
+\altaffiltext{\nyu}{Center for Cosmology and Particle Physics,
+                        Department of Physics, New York University,
+                        4 Washington Place, New York, NY, 10003, USA}
+
+\begin{abstract}
+
+\end{abstract}
+
+\keywords{}
+
+\begin{thebibliography}{}\raggedright
+
+\bibitem[Batalha \etal(2012)]{Batalha:2012} Batalha, N.~M., Rowe,
+    J.~F., Bryson, S.~T., \etal\ 2012, \arxiv{1202.5852}
+
+\end{thebibliography}
+
+\end{document}
+
+
