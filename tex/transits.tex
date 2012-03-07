@@ -46,6 +46,12 @@
 \renewcommand{\matrix}[1]{#1}
 \newcommand{\pr}[1]{\ensuremath{p(#1)}}
 
+% Parameters
+\newcommand{\duration}{\ensuremath{\Delta t}}
+\newcommand{\period}{\ensuremath{T}}
+\newcommand{\radius}{\ensuremath{R}}
+\newcommand{\orbitpars}{\ensuremath{\omega}}
+
 \begin{document}
 
 \title{Notes about transit modeling}
@@ -63,6 +69,17 @@
 \end{abstract}
 
 \keywords{}
+
+In a single star, transits are observed with duration \duration\ and
+period \period.  What can you infer about the radius \radius\ of
+the secondary given these two observations?  In a large set of $N$
+stars $n$, a fraction $f$ are found to show transits.  In each
+transiting system there is transit duration $\duration_n$ and period
+$\period_n$.  What can you infer about the distribution
+\pr{\radius,\orbitpars} of secondary radii $\radius$ and orbital
+parameters \orbitpars\ (a set of parameters, including semi-major
+axis and eccentricity, for example, or energy and angular momentum)
+for the whole population of primaries?
 
 \begin{thebibliography}{}\raggedright
 
