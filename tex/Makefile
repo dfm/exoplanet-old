@@ -17,6 +17,9 @@ default: ${DOC_OUT}
 	( ${CHECK_RERUN} && ${LATEX} $< ) || echo "Done."
 	( ${CHECK_RERUN} && ${LATEX} $< ) || echo "Done."
 
+plots:
+	$(foreach f, plotting/*.py, python ${f};)
+
 clean:
 	${RM_TMP}
 

@@ -54,6 +54,12 @@
 \newcommand{\radius}{\ensuremath{R}}
 \newcommand{\orbitpars}{\ensuremath{\omega}}
 
+\newcommand{\rstar}{\ensuremath{R_*}}
+\newcommand{\rp}{\ensuremath{R_p}}
+\newcommand{\Dproj}{\ensuremath{D}}
+\newcommand{\zgeo}{\ensuremath{z}}
+\newcommand{\pgeo}{\ensuremath{p}}
+
 \begin{document}
 
 \title{Notes about transit modeling}
@@ -88,12 +94,49 @@ parameters \orbitpars\ (a set of parameters, including semi-major
 axis and eccentricity, for example, or energy and angular momentum)
 for the whole population of primaries?
 
+\section{Transit Modeling}
+
+\paragraph{Geometry}
+
+For a planet with radius \rp\ transiting a star of radius \rstar\ with the
+\emph{projected} center-to-center distance \Dproj, we define the
+dimensionless parameters $\zgeo = \Dproj/\rstar$ and $\pgeo = \rp/\rstar$
+(\fig{geom}). In terms of these parameters, the area of the planet that
+overlaps the star is given by
+\begin{equation}
+    A_0 = \left \{ \begin{array}{ll}
+        0, & \zgeo \ge 1+\pgeo \\
+        \kappa_1 + \pgeo^2 \, \kappa_2
+        - \sqrt{\zgeo^2
+            - \frac{1}{4} \, \left ( \zgeo^2-\pgeo^2+1 \right )^2} ,
+        & |1 - \pgeo| < \zgeo < 1+ \pgeo \\
+        \pi \, \pgeo^2 & \zgeo \le 1-p \\
+                   \pi & \zgeo \le p-1
+    \end{array}
+    \right .
+\end{equation}
+where
+\begin{equation}
+    \kappa_1 = \cos^{-1} \left ( \frac{\zgeo^2-\pgeo^2+1}{2\,\zgeo} \right )
+    \quad \mathrm{and} \quad
+    \kappa_2 = \cos^{-1} \left ( \frac{\zgeo^2+\pgeo^2-1}{2\,\zgeo\,\pgeo}
+        \right ) \quad .
+\end{equation}
+
 \begin{thebibliography}{}\raggedright
 
 \bibitem[Batalha \etal(2012)]{Batalha:2012} Batalha, N.~M., Rowe,
     J.~F., Bryson, S.~T., \etal\ 2012, \arxiv{1202.5852}
 
 \end{thebibliography}
+
+\clearpage
+
+\begin{figure}[tbp]
+    \plotone{geom.pdf}
+    \caption{The geometry of a transiting system in units of \rstar.
+        \figlabel{geom}}
+\end{figure}
 
 \end{document}
 
