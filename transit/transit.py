@@ -102,6 +102,6 @@ class Transit(object):
             time.sleep(0.05)
 
 if __name__ == '__main__':
-    transit = Transit(10, 1, 0.8, np.radians(2))
+    transit = Transit(10, 1, 0.2, np.radians(5))
     transit.animate()
 

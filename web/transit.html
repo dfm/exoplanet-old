@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>Transit</title>
+
+    <style>
+
+body {
+  font: 10px sans-serif;
+  margin: 0;
+}
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line, .x.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <div id="container">
+        <div id="data"></div>
+    </div>
+
+<script src="lib/dfm.js"></script>
+<script src="http://mbostock.github.com/d3/d3.min.js"></script>
+<script>
+
+var m = [80, 80, 80, 80],
+    w = 960 - m[1] - m[3],
+    h = 500 - m[0] - m[2];
+
+// Scales and axes. Note the inverted domain for the y-scale: bigger is up!
+var x = d3.scale.linear().range([0, w]),
+    y = d3.scale.linear().range([h, 0]),
+    xAxis = d3.svg.axis().scale(x).ticks(5),
+    yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
+
+// A line generator, for the dark stroke.
+var line = d3.svg.line()
+    .x(function(d) { return x(d[0]); })
+    .y(function(d) { return y(d[1]); });
+
+var values = [[-0.5, 0.4], [0.5, 0.1]];
+
+x.domain([-1, 1]);
+y.domain([0, 1]).nice();
+
+var svg = d3.select("#data").append("svg:svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+.append("svg:g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+// Add the clip path.
+svg.append("svg:clipPath")
+    .attr("id", "clip")
+.append("svg:rect")
+    .attr("width", w)
+    .attr("height", h);
+
+// Add the x-axis.
+svg.append("svg:g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + h + ")")
+    .call(xAxis);
+
+// Add the y-axis.
+svg.append("svg:g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+// Add the line path.
+svg.append("svg:path")
+    .attr("class", "line")
+    .attr("clip-path", "url(#clip)")
+    .attr("d", line(values));
+
+</script>
+
+</body>
+</html>
