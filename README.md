@@ -5,13 +5,13 @@ exoplanets.
 
 ### Principal authors ###
 
-* Dan Foreman-Mackey, New York University, <http://danfm.ca/>
-* David W. Hogg, New York University, <http://cosmo.nyu.edu/hogg/>
+* [Dan Foreman-Mackey](http://danfm.ca/), New York University
+* [David W. Hogg](http://cosmo.nyu.edu/hogg/), New York University
 
 ### Contributors ###
 
-* Adam Myers, University of Wyoming, <http://faraday.uwyo.edu/~admyers/>
-* Jo Bovy, Institute for Advanced Study, <http://cosmo.nyu.edu/~jb2777/>
+* [Adam Myers](http://faraday.uwyo.edu/~admyers/), University of Wyoming
+* [Jo Bovy](http://cosmo.nyu.edu/~jb2777/), Institute for Advanced Study
 
 ### License ###
 
