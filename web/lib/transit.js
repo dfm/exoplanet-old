@@ -2,7 +2,8 @@
     "use strict";
 
     // Some math helpers
-    window.radians = function (d) {return d * Math.PI/180.0;};
+    window.radians = function (d) {return d*Math.PI/180.0;};
+    window.degrees = function (r) {return r/Math.PI*180.0;};
     window.linspace = function (a, b, N) {
         var i, r = [];
         if (a >= b) throw "Don't be silly";
@@ -21,16 +22,28 @@
 
     // A single planet object
     var Planet = function (Rp, R, incl) {
-        this.Rp = Rp;
         this.R = R;
-        this.incl = radians(incl);
-        this._si = Math.sin(this.incl);
-        this._si2 = this._si * this._si;
-        this._ci = Math.cos(this.incl);
+        this.Rp(Rp);
+        this.incl(incl);
         return this;
     };
     Planet.prototype = {
         constructor: Planet,
+
+        incl: function (incl) {
+            if (typeof(incl) === "undefined") return degrees(this._incl);
+            this._incl = radians(incl);
+            this._si = Math.sin(this._incl);
+            this._si2 = this._si * this._si;
+            this._ci = Math.cos(this._incl);
+            return incl;
+        },
+
+        Rp: function (Rp) {
+            if (typeof(Rp) === "undefined") return this._Rp;
+            this._Rp = Rp;
+            return Rp;
+        },
 
         position: function (ph) {
             var s = Math.sin(ph), c = Math.cos(ph), proj, depth;
@@ -73,10 +86,12 @@
             return _.map(t, function (t0) {
                 return {t: t0, f: 1-_.reduce(me.planets, function (v, p) {
                         var pos, proj;
-                        console.log(p);
                         pos = p.position(t0);
-                        proj = pos[0]/me.Rs;
-                        return v+me.occultation(proj, p.Rp/me.Rs);
+                        if (pos[1] > 0) {
+                            proj = pos[0]/me.Rs;
+                            return v+me.occultation(proj, p._Rp/me.Rs);
+                        }
+                        return v;
                     }, 0)
                 };
             });
@@ -88,28 +103,25 @@
 })();
 
 $(function () {
+    // Default dataset setup
+    var p  = new Planet(0.6, 8, 6),
+        ps = new PlanetarySystem(1);
+    ps.add_planet(p);
+
+    // Dimensions
     var m = [80, 80, 80, 80],
         w = 960 - m[1] - m[3],
         h = 500 - m[0] - m[2];
-
-    // Scales and axes. Note the inverted domain for the y-scale: bigger is up!
+    // Axes
     var x = d3.scale.linear().range([0, w]),
         y = d3.scale.linear().range([h, 0]),
         xAxis = d3.svg.axis().scale(x).ticks(5),
         yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
-
-    // A line generator, for the dark stroke.
+    // Line generator
     var line = d3.svg.line()
         .x(function(d) { return x(d.t); })
         .y(function(d) { return y(d.f); });
-
-    var p = new Planet(0.6, 10, 6), ps = new PlanetarySystem(1);
-    ps.add_planet(p);
-    var lc = ps.lightcurve(arange(-Math.PI, Math.PI, 0.01));
-
-    x.domain([-1, 1]);
-    y.domain([_.min(lc, function (v) {return v.f;}).f-0.1, 1.1]).nice();
-
+    // SVG image canvas
     var svg = d3.select("#data").append("svg:svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
@@ -123,20 +135,44 @@ $(function () {
         .attr("width", w)
         .attr("height", h);
 
-    // Add the x-axis.
+    // Construct the axes
+    x.domain([-Math.PI, Math.PI]);
+    y.domain([0.5,1.1]).nice();
     svg.append("svg:g")
+        .attr("id", "xaxis")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + h + ")")
         .call(xAxis);
-
-    // Add the y-axis.
     svg.append("svg:g")
         .attr("class", "y axis")
         .call(yAxis);
 
-    // Add the line path.
     svg.append("svg:path")
+        .attr("id", "line")
         .attr("class", "line")
         .attr("clip-path", "url(#clip)")
-        .attr("d", line(lc));
+
+    var draw = function () {
+        var lc = ps.lightcurve(arange(-Math.PI, Math.PI, 0.01));
+        d3.select("#line")
+            .attr("d", line(lc));
+    };
+
+    window.transit = {
+        draw: draw,
+        system: ps,
+    };
+
+    draw();
+});
+
+$(function () {
+    window.incl = new D3Slider("#inclination", function (sender) {
+        transit.system.planets[0].incl(sender.value());
+        transit.draw();
+    }, [-10, 10]);
+    window.incl = new D3Slider("#rplanet", function (sender) {
+        transit.system.planets[0].Rp(sender.value());
+        transit.draw();
+    }, [0.01, 5]);
 });

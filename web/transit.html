@@ -10,8 +10,14 @@
 </head>
 <body>
 
-    <div id="container">
+    <div class="container">
         <div id="data"></div>
+        <div id="controls">
+            <ul>
+                <li class="slider" id="inclination">Inclination</li>
+                <li class="slider" id="rplanet">Planet Radius</li>
+            </ul>
+        </div>
     </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -23,6 +29,7 @@
         document.write(unescape("<script src=\"lib/jquery.min.js\"><"+"/script>"));
 </script>
 <script src="lib/underscore.js"></script>
+<script src="lib/controls.js"></script>
 <script src="lib/transit.js"></script>
 
 </body>

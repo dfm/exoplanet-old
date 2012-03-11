@@ -1,16 +1,20 @@
 body {
-    font: 10px sans-serif;
     margin: 0;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#data {
+    font: 10px sans-serif;
 }
 
 path.line {
     fill: none;
     stroke: #666;
     stroke-width: 1.5px;
-}
-
-path.area {
-    fill: #e7e7e7;
 }
 
 .axis {
@@ -25,5 +29,19 @@ path.area {
 .y.axis line, .y.axis path {
     fill: none;
     stroke: #000;
+}
+
+.slider svg {
+    padding: 0 10px;
+    cursor: pointer;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    padding: 0;
+}
+
+li {
+    text-align: right;
 }
 
